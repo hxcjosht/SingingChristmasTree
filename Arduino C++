@@ -1,0 +1,27 @@
+#include <Servo.h>
+Servo myservo;
+char receivedPos;
+
+void setup() {
+  Serial.begin(115200);
+  myservo.attach(9);
+  //myservo.write(0);
+
+}
+
+
+void loop(){
+  while(Serial.available()){
+    String commands = Serial.readString();
+    Serial.println(commands);
+    receivedPos = commands.charAt(0);
+    switch (receivedPos) {
+      case 'a': myservo.write(90); break;
+      case 's': myservo.write(50); break;
+      case 'd': myservo.write(0); break;
+      //Serial.flush();
+      ///default: break;
+     
+    }
+  } 
+ }
