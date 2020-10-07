@@ -3,24 +3,33 @@ Servo myservo;
 char receivedPos;
 
 void setup() {
+  // sets up serial connection with 115200 baud rate (needs to match pi's baud rate)
   Serial.begin(115200);
+  // attaches servo vaariable to pin 9
   myservo.attach(9);
-  //myservo.write(0);
+  // sets initial position of servo
+  myservo.write(0);
 
 }
 
 
 void loop(){
+// while the serial connection is do this... 
   while(Serial.available()){
+  //decodes and reads the incoming commands from pi
     String commands = Serial.readString();
+    //prints the command
     Serial.println(commands);
+    // creates variable and reads the character at position 0
     receivedPos = commands.charAt(0);
     switch (receivedPos) {
+      //sent command is variable that assigns to a position and sends position to servo causing it to move
       case 'a': myservo.write(90); break;
       case 's': myservo.write(50); break;
       case 'd': myservo.write(0); break;
-      //Serial.flush();
-      ///default: break;
+      //flushes out the memory so it doesnt fill up
+      Serial.flush();
+      default: break;
      
     }
   } 
