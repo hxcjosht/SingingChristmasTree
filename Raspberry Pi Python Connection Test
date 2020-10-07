@@ -1,19 +1,27 @@
 import serial
 import time
 
-
+#Sets up the serial connection with a variable called "ser". Note output may be different than the ACM0
 ser = serial.Serial('/dev/ttyACM0', 115200)
 
+#While loop to run the servo
 while True:
+    #writes to the serialport
     ser.write(b"a\n")
+    #translates the command and creates a variable called "line"
     line= ser.readline().decode('utf-8').rstrip()
+    #Prints the decoded serial command with line variable
     print(line)
-    time.sleep(0.5)
+    #waits 1 second to send next command
+    time.sleep(1)
+   
+   #repeats with 2 different positional commands
+    
     ser.write(b"s\n")
     line= ser.readline().decode('utf-8').rstrip()
     print(line)
-    time.sleep(0.5)
+    time.sleep(1)
     ser.write(b"d\n")
     line= ser.readline().decode('utf-8').rstrip()
     print(line)
-    time.sleep(0.5)
+    time.sleep(1)
